@@ -1,0 +1,43 @@
+
+clc;
+clear;
+
+// Given gain
+k = 10;
+
+// Define numerator and denominator
+num = poly([1], "s", "coeff");
+den = poly([0 1 0.6 0.05], "s", "coeff");
+
+// Define transfer function
+G = syslin('c', k*num/den);
+
+// Display transfer function
+disp(G, "The given transfer function G(s) =");
+
+// Plot Bode diagram
+scf(0);
+clf();
+
+bode(G, 0.01, 1000);
+xtitle("Bode Plot of the Given Transfer Function");
+
+// Calculate gain margin
+[g, frp] = g_margin(G);
+
+// Calculate phase margin
+[p, frg] = p_margin(G);
+
+// Display gain and phase margins
+disp(g, "Gain Margin (dB) =");
+disp(frp, "Phase Crossover Frequency (Hz) =");
+
+disp(p, "Phase Margin (degrees) =");
+disp(frg, "Gain Crossover Frequency (Hz) =");
+
+// Display Bode plot with margins
+scf(1);
+clf();
+
+show_margins(G);
+xtitle("Bode Plot with Gain and Phase Margins");
