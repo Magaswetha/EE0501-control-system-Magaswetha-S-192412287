@@ -1,0 +1,19 @@
+// Root Locus
+clc;
+clear;
+close("all");
+
+// Define Laplace variable
+s = %s;
+
+// Given transfer function
+// G(s) = 1/[s(s+1)(s^2+4s+13)]
+G = syslin('c', 1, s*(s+1)*(s^2 + 4*s + 13));
+
+disp(G, "The given transfer function G(s) =");
+
+// Root locus plot
+evans(G, 100);
+
+xtitle("Root Locus Plot", "Real Axis", "Imaginary Axis");
+xgrid();
