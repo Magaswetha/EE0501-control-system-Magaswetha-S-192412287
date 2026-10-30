@@ -1,0 +1,35 @@
+
+clear;
+clc;
+mode(0);
+
+// Define state-space matrices
+A = [0 1 0;
+     0 0 1;
+    -5.008 -25.1026 -5.03247];
+
+B = [0;
+     25.04;
+    -121.005];
+
+C = [1 0 0];
+
+D = [0];
+
+// Display state-space model
+disp("The given state model:");
+disp("State equation: x_dot = Ax + Bu");
+disp("Output equation: y = Cx + Du");
+
+disp(A, "A =");
+disp(B, "B =");
+disp(C, "C =");
+disp(D, "D =");
+
+// Convert state-space model into transfer function
+H = syslin('c', A, B, C, D);
+
+G = clean(ss2tf(H));
+
+// Display transfer function
+disp(G, "The obtained transfer function G(s) =");
