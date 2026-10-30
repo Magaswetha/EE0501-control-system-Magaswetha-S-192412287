@@ -1,0 +1,40 @@
+
+clc;
+clear;
+mode(0);
+
+s = poly(0,'s');
+
+// Given transfer function
+N = s+3;
+D = s^2+3*s+2;
+
+// Controllable canonical form
+Hc = syslin('c',N/D);
+Hc = tf2ss(Hc);
+
+disp("Controllable form =");
+ssprint(Hc);
+
+// Observable canonical form
+Ho = syslin('c',Hc.A',Hc.C',Hc.B',Hc.D);
+
+disp("Observable form =");
+ssprint(Ho);
+
+// Jordan canonical form
+A = diag(roots(D));
+
+B = [1;1];
+
+// Partial fraction residues
+C = [2 -1];
+
+D1 = 0;
+
+// Create Jordan state-space model
+Hj = syslin('c',A,B,C,D1);
+
+disp("Jordan canonical form =");
+ssprint(Hj);
+
