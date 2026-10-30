@@ -1,0 +1,34 @@
+
+clear;
+clc;
+mode(0);
+
+s = %s;
+
+// Given transfer function
+Htf = syslin('c', s, 160 + 56*s + 14*s^2 + s^3);
+
+// Convert transfer function to state-space model
+Hss = tf2ss(Htf);
+
+// Display state-space model
+disp("The obtained state space model for the given transfer function:");
+disp("State equation: x_dot = Ax + Bu");
+disp("Output equation: Y = Cx + D");
+
+// Display state-space model
+disp(Hss);
+
+// Extract A, B, C, D matrices
+[A,B,C,D] = abcd(Hss);
+
+// Display matrices
+disp(A, "A =");
+disp(B, "B =");
+disp(C, "C =");
+disp(D, "D =");
+
+// Cross-check transfer function
+Htf2 = clean(ss2tf(Hss));
+
+disp(Htf2, "The obtained transfer function G(s) =");
