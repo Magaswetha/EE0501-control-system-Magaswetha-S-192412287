@@ -1,0 +1,34 @@
+
+clear;
+clc;
+mode(0);
+
+s = poly(0,'s');
+
+// Define state-space matrices
+A = [0 1;
+    -6 -5];
+
+B = [0;
+     1];
+
+C = [8 1];
+
+// Find matrix dimensions
+[n1,n2] = size(A);
+
+// Identity matrix
+I = eye(n1,n2);
+
+// Calculate (sI-A)
+X = s*I-A;
+
+// Find inverse of matrix
+phi = inv(X);
+
+// Calculate transfer function
+Y = C*phi;
+Z = Y*B;
+
+// Display transfer function
+disp(Z,"The transfer function representation of system is T(s)=");
